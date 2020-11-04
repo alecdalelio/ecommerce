@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<div th:replace="fragments/fragment :: head"></div>>
+    <title>Products</title>
+</head>
+
+<body>
+<div th:replace="fragments/fragment :: navbar"></div>
+
+    <div class="container">
+        <div class="card mb-3 large-product-card">
+            <div class="row no-gutters">
+
+                <div class="col-md-6">
+                    <img th:src="@{${product.image}" th:alt="${product.name}" class="card-img" style="max-height: 100%; object-fit: cover;">
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card-body">
+                        
+                        <div class="card-title">
+                            <h4 th:text="${product.name}" style="margin-bottom: 0;"></h4>
+                            <small th:text="${product.getBrand()}"></small>
+                        </div>
+
+                        <h5 class="card-text" th:text="${#numbers.formatCurrency(product.price)}"></h5>
+
+                        <p class="card-text" th:text="${product.description}"></p>
+
+                        <form th:action="@{/cart}" th:object="${product}" method="POST">
+                            <input type="hidden" th:field="*{id}"/>
+                            <button class="btn btn-primary" type="submit">Add to cart</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/fragment :: footer"></div>
+
+</body>
+
+</html>
